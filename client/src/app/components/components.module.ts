@@ -27,7 +27,9 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     BsDropdownModule.forRoot(),
     AppRoutingModule,
-    ToastrModule
+    ToastrModule.forRoot(
+      { positionClass: 'toast-bottom-right' }
+    )
   ],
   exports: [
     NavComponent,
