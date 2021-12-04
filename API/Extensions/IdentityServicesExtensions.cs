@@ -10,11 +10,19 @@ namespace API.Extensions
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config){
 
+            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //         .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters {
+            //                ValidateIssuerSigningKey = true,
+            //                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
+            //                ValidateAudience = false 
+            //         });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters {
+                    .AddJwtBearer(options => 
+                    options.TokenValidationParameters = new TokenValidationParameters {
                            ValidateIssuerSigningKey = true,
                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
-                           ValidateAudience = false 
+                           ValidateAudience = false,
+                           ValidateIssuer = false 
                     });
             return services;
         }
