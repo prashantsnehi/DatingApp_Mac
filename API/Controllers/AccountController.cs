@@ -32,7 +32,7 @@ namespace API.Controllers
             
             using var hmac = new HMACSHA512();
 
-            var user = new AppUser{
+            var user = new AppUser {
                 UserName = dto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(dto.Password)),
                 PasswordSalt = hmac.Key
@@ -42,7 +42,7 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
 
             return new UserDto {
-                UserName = user.UserName,
+                UserName = user.UserName,   
                 Token = _tokenService.GetToken(user)
             };
         }

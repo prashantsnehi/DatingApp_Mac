@@ -21,7 +21,7 @@ public class UserRepository : IUserRepository
     public async Task<AppUser> GetUserByIdAsync(int id) => await _context.Users.FindAsync(id);
 
     public async Task<AppUser> GetUserByUsernameAsync(string username) => 
-                        await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+                        await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
         
     public void Update(AppUser user)
     {
@@ -30,7 +30,7 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> SaveAllAsync() => await _context.SaveChangesAsync() > 0;
 
-    public async Task<IEnumerable<AppUser>> GetUsersAsync() => await _context.Users.ToListAsync();
+    public async Task<IEnumerable<AppUser>> GetUsersAsync() => await _context.Users.Include(p => p.Photos).ToListAsync();
 
     public async Task<IEnumerable<MemberDto>> GetMembersAsync() => await _context.Users.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
 

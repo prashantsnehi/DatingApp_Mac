@@ -11,6 +11,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { ToastrModule } from 'ngx-toastr';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { ToastrModule } from 'ngx-toastr';
     ListComponent,
     MemberListComponent,
     MemberDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    MemberCardComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,9 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     ToastrModule.forRoot(
       { positionClass: 'toast-bottom-right' }
-    )
+    ),
+    TabsModule.forRoot(),
+    NgxGalleryModule
   ],
   exports: [
     NavComponent,
@@ -37,7 +43,10 @@ import { ToastrModule } from 'ngx-toastr';
     ListComponent,
     MemberListComponent,
     MemberDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    MemberCardComponent,
+    TabsModule,
+    NgxGalleryModule
   ]
 })
 export class ComponentsModule { }

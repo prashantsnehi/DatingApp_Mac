@@ -1,1 +1,58 @@
-<p>member-detail works!</p>
+<div class="row" *ngIf="member">
+    <div class="col-4">
+        <div class="card">
+            <img src="{{member.photUrl || './assets/user.png' }}" 
+                 alt="{{member.knownAs}}" 
+                 class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Location: </strong>
+                    <p>{{member.city}}, {{member.country}}</p>
+                </div>
+                <div>
+                    <strong>Age: </strong>
+                    <p>{{member.age}} years</p>
+                </div>
+                <div>
+                    <strong>Last Active: </strong>
+                    <p>{{member.lastActive}}</p>
+                </div>
+                <div>
+                    <strong>Member Since: </strong>
+                    <p>{{member.created}}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group d-flex">
+                    <button class="btn btn-primary"><i class="fa fa-heart"></i>&nbsp;&nbsp;Like</button>
+                    <button class="btn btn-success"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="About {{member.knownAs}}">
+                <h4 class="mt-4">Description</h4>
+                <p>{{member.introduction}}</p>
+                <h4>Looing For</h4>
+                <p>{{member.lookingFor}}</p>
+            </tab>
+            <tab heading="Interests">
+                <h4 class="mt-4">Interests</h4>
+                <p>{{member.interests}}</p>
+            </tab>
+            <tab heading="Photos">
+                <h4>Images goes here</h4>
+                <ngx-gallery *ngIf="galleryImages" 
+                             [options]="galleryOptions" 
+                             [images]="galleryImages" 
+                             class="ngx-gallary">
+                </ngx-gallery>
+            </tab>
+            <tab heading="Messages">
+                <p class="mt-4">Messages will go here</p>
+            </tab>
+        </tabset>
+    </div>
+</div>
