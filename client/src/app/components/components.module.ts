@@ -14,6 +14,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberseditComponent } from './members/membersedit/membersedit.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     MemberListComponent,
     MemberDetailComponent,
     MessagesComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberseditComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
       { positionClass: 'toast-bottom-right' }
     ),
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxSpinnerModule
   ],
   exports: [
     NavComponent,
@@ -46,7 +50,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     MessagesComponent,
     MemberCardComponent,
     TabsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    MemberseditComponent,
+    NgxSpinnerModule
   ]
 })
 export class ComponentsModule { }
