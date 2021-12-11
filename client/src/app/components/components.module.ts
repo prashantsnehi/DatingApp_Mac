@@ -16,6 +16,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MemberseditComponent } from './members/membersedit/membersedit.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MemberDetailComponent,
     MessagesComponent,
     MemberCardComponent,
-    MemberseditComponent
+    MemberseditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ),
     TabsModule.forRoot(),
     NgxGalleryModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FileUploadModule
   ],
   exports: [
     NavComponent,
@@ -52,7 +56,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TabsModule,
     NgxGalleryModule,
     MemberseditComponent,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    PhotoEditorComponent,
+    FileUploadModule
   ]
 })
 export class ComponentsModule { }

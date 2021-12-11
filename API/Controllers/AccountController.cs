@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Security.Cryptography;
 using System.Net.Cache;
@@ -53,7 +54,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto dto)  
         {
-            var user = await _context.Users.SingleOrDefaultAsync( x=> x.UserName == dto.Username.ToLower());
+            var user = await _context.Users
+                    .Include(p => p.Photos)
+                    .SingleOrDefaultAsync( x=> x.UserName == dto.Username.ToLower());
 
             if(user == null) return Unauthorized("Invalid Username");
 
@@ -68,7 +71,8 @@ namespace API.Controllers
             
             return new UserDto {
                 UserName = user.UserName,
-                Token = _tokenService.GetToken(user)
+                Token = _tokenService.GetToken(user),
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
         }
 
