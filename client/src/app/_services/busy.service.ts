@@ -11,19 +11,19 @@ export class BusyService {
   busy() {
     this.busyRequestCount++;
     this.spinnerService.show(undefined, {
-      // type: 'line-scale-party',
       // bdColor: 'rgba(255, 255, 255, 0.3)',
       // color: '#333333',
+      // type: 'line-scale-party',
       // type: 'ball-scale-multiple',
-      // type: 'timer',
+      type: 'timer',
       // type: 'ball-clip-rotate-multiple',
       // type: 'ball-fussion',
       // type: 'ball-spin-clockwise',
       // type: 'cog',
-      type: 'square-jelly-box',
-      bdColor: 'rgba(51,51,51,0.8)',
+      //type: 'square-jelly-box',
+      bdColor: 'rgba(51,51,51,0.7)',
       color: '#fff',
-      size: 'medium'
+      size: 'large'
     })
   }
 

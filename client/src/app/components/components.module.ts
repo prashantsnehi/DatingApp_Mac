@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -18,6 +18,10 @@ import { MemberseditComponent } from './members/membersedit/membersedit.componen
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { InputValidationComponent } from './_form/input-validation/input-validation.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DateInputComponent } from './_form/date-input/date-input.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     MessagesComponent,
     MemberCardComponent,
     MemberseditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    InputValidationComponent,
+    DateInputComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +49,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     TabsModule.forRoot(),
     NgxGalleryModule,
     NgxSpinnerModule,
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     NavComponent,
@@ -58,7 +66,11 @@ import { FileUploadModule } from 'ng2-file-upload';
     MemberseditComponent,
     NgxSpinnerModule,
     PhotoEditorComponent,
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule,
+    InputValidationComponent,
+    BsDatepickerModule,
+    DateInputComponent
   ]
 })
 export class ComponentsModule { }
