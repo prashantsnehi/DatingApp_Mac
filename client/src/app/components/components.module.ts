@@ -21,6 +21,9 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { InputValidationComponent } from './_form/input-validation/input-validation.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DateInputComponent } from './_form/date-input/date-input.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from 'ngx-timeago';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
     NgxSpinnerModule,
     FileUploadModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
+    TimeagoModule.forRoot()
   ],
   exports: [
     NavComponent,
@@ -70,7 +76,10 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
     ReactiveFormsModule,
     InputValidationComponent,
     BsDatepickerModule,
-    DateInputComponent
+    DateInputComponent,
+    PaginationModule, 
+    ButtonsModule,
+    TimeagoModule
   ]
 })
 export class ComponentsModule { }

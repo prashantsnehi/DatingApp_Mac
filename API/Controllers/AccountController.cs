@@ -1,7 +1,5 @@
 using System.Linq;
-using System;
 using System.Security.Cryptography;
-using System.Net.Cache;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
@@ -49,7 +47,8 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.GetToken(user),
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
 
@@ -79,10 +78,12 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = _tokenService.GetToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
 
-        private async Task<bool> UserExist(string username) => await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+        private async Task<bool> UserExist(string username) => 
+                        await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
     }
 }

@@ -1,18 +1,15 @@
-using System.Security.Claims;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTO;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using API.Extensions;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -34,7 +31,19 @@ namespace API.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers() => Ok(await _userRepository.GetMembersAsync());
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)  
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            userParams.CurrentUserName = user.UserName;
+            if(string.IsNullOrEmpty(userParams.Gender)) {
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            }
+
+            var users = await _userRepository.GetMembersAsync(userParams);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+            return Ok(users);
+        }
 
         // [HttpGet("{id}")]
         // [ProducesResponseType(StatusCodes.Status200OK)]

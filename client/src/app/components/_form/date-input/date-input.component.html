@@ -1,6 +1,7 @@
 <div class="form-group">
     <input type="text"
-           [class.is-invalid]='ngControl.valid && ngControl.touched'
+           [class.is-invalid]='!ngControl.valid && ngControl.touched'
+           [class.is-valid]='ngControl.valid && ngControl.touched'
            class="form-control"
            [formControl]="ngControl.control"
            placeholder="{{label}}"
