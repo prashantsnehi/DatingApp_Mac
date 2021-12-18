@@ -18,6 +18,7 @@ export class NavComponent implements OnInit {
   userDto: any;
   loginForm: FormGroup;
   formValidator: boolean;
+  allowedRoles: string[];
 
   constructor(private accountService: AccountService,
     private router: Router,
@@ -29,6 +30,7 @@ export class NavComponent implements OnInit {
     this.initializeForm();
     this.model = { username: '', password: '' };
     this.formValidator = this.validateForm();
+    this.allowedRoles = ["Admin", "Moderator"];
   }
 
   login() {
