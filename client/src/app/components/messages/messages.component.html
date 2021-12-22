@@ -23,20 +23,20 @@
             <th style="width: 20%;">Messages</th>
         </tr>
         <tr [hidden]="loading" *ngFor="let message of messages" routerLink="{{container === 'Outbox' 
-                        ? '/members/' + message.recipientUsername 
-                        : '/members/' + message.senderUsername}}"
+                        ? '/members/' + message.recipientUserName 
+                        : '/members/' + message.senderUserName}}"
                     [queryParams]="{tab: 3}">
             <td>
                 <div *ngIf="container === 'Outbox'">
                     <img class="img-circle rounded-circle mr-2"
                         src="{{message.recipientPhotoUrl || './assets/user.png'}}"
-                        alt="{{messages.recipientUsername | titlecase}}">
-                    <strong>{{message.recipientUsername | titlecase}}</strong>
+                        alt="{{messages.recipientUserName | titlecase}}">
+                    <strong>{{message.recipientUserName | titlecase}}</strong>
                 </div>
                 <div *ngIf="container !== 'Outbox'">
                     <img class="img-circle rounded-circle mr-2" src="{{message.senderPhotoUrl || './assets/user.png'}}"
-                        alt="{{messages.senderUsername | titlecase}}">
-                    <strong>{{message.senderUsername | titlecase}}</strong>
+                        alt="{{messages.senderUserName | titlecase}}">
+                    <strong>{{message.senderUserName | titlecase}}</strong>
                 </div>
             </td>
             <td>{{message.content}}</td>

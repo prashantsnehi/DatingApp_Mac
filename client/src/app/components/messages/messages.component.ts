@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { switchAll } from 'rxjs/operators';
 import { Message } from 'src/app/_models/message';
 import { Pagination } from 'src/app/_models/pagination';
 import { MessageService } from 'src/app/_services/message.service';
@@ -38,11 +39,9 @@ export class MessagesComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    if(this.pageNumber !== event.page)
-    {
+    if(this.pageNumber !== event.page) {
       this.pageNumber = event.page;
     }
-    
     this.loadMessages();
   }
 
