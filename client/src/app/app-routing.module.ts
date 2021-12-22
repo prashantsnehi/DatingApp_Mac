@@ -13,6 +13,7 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { MemberDetailedResolver } from './_resolvers/member-detail-resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -22,7 +23,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'members', component: MemberListComponent },
-      { path: 'members/:username', component: MemberDetailComponent },
+      { path: 'members/:username', component: MemberDetailComponent, resolve: { member: MemberDetailedResolver} },
       { path: 'member/edit', component: MemberseditComponent, canDeactivate: [PreventUnsavedChangesGuard] },
       { path: 'list', component: ListComponent },
       { path: 'messages', component: MessagesComponent },
