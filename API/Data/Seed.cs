@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -31,7 +32,7 @@ namespace API.Data
             }
             foreach(var user in users) {
                 // using var hmac = new HMACSHA512();
-
+                user.Photos.First().IsApproved = true;
                 user.UserName = user.UserName.ToLower();
                 // user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("P@$$w0rd"));
                 // user.PasswordSalt = hmac.Key;

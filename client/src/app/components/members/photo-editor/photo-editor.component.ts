@@ -7,6 +7,7 @@ import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-photo-editor',
@@ -73,8 +74,22 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   deletePhoto(photoId: number) {
-    this.memberService.deletePhoto(photoId).subscribe(() => {
-      this.member.photos = this.member.photos.filter(x => x.id != photoId);
+    Swal.fire({
+      title: '<strong><h4>Confirmation.</h4></strong>',
+      icon: 'question',
+      html: 'Are you sure you want to delte this photo',
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sure!',
+      confirmButtonColor: 'green',
+      confirmButtonAriaLabel: 'Thumbs up Sure!',
+      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Not Sure!',
+      cancelButtonColor: 'red',
+      allowOutsideClick: false
+    }).then((result) => {
+      this.memberService.deletePhoto(photoId).subscribe(() => {
+        this.member.photos = this.member.photos.filter(x => x.id != photoId);
+      })
     })
   }
 

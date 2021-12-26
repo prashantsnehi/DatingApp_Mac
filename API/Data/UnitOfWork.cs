@@ -23,6 +23,8 @@ namespace API.Data
 
         public ILikesRepository LikesRepository => new LikesRepository(_userManager, _context);
 
+        public IPhotoRepository PhotoRepository => new PhotoRepository(_context, _mapper);
+
         public async Task<bool> Complete() => await _context.SaveChangesAsync() > 0;
 
         public bool HasChanges() => _context.ChangeTracker.HasChanges();
