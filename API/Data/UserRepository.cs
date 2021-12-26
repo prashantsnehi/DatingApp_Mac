@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +29,7 @@ public class UserRepository : IUserRepository
         _context.Entry(user).State = EntityState.Modified;
     }
 
-    public async Task<bool> SaveAllAsync() => await _context.SaveChangesAsync() > 0;
+    // public async Task<bool> SaveAllAsync() => await _context.SaveChangesAsync() > 0;
 
     public async Task<IEnumerable<AppUser>> GetUsersAsync() => await _context.Users.Include(p => p.Photos).ToListAsync();
 
@@ -60,4 +59,7 @@ public class UserRepository : IUserRepository
                 await _context.Users.Where(x => x.UserName == username)
                                     .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                                     .SingleOrDefaultAsync();
+
+    public async Task<string> GetUserGender(string username) => 
+           await _context.Users.Where(x => x.UserName == username).Select(x => x.Gender).FirstOrDefaultAsync();
 }

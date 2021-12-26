@@ -18,20 +18,23 @@ export class MessageService {
   hubUrl: string = environment.hubUrl;
   private hubConnection: HubConnection;
   private messageSource = new BehaviorSubject<Message[]>([]);
-
   messageThread$ = this.messageSource.asObservable();
 
   constructor(private http: HttpClient, private busyService: BusyService) { }
 
   createHubConnection(user: User, otherUsername: string) {
+    this.busyService.busy();
     this.hubConnection = new HubConnectionBuilder()
-        .withUrl(`${this.hubUrl}message?user=${otherUsername}`, {
+        .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
           accessTokenFactory: () => user.token
         })
         .withAutomaticReconnect()
         .build();
     
-    this.hubConnection.start().catch(error => console.log(error)).finally(() => this.busyService.idle());
+    this.hubConnection.start()
+                      .catch(error => console.log(error))
+                      .finally(() => this.busyService.idle());
+
     this.hubConnection.on("ReceiveMessageThread", messages => {
       this.messageSource.next(messages);
     })
@@ -70,13 +73,15 @@ export class MessageService {
     return getPaginatedResult<Message[]>(`${this.baseUrl}messages`, params, this.http);
   }
 
-  getMessageThread = (username: string) => 
-    this.http.get<Message[]>(`${this.baseUrl}messages/thread/${username}`);
+  getMessageThread(username: string) { 
+    return this.http.get<Message[]>(`${this.baseUrl}messages/thread/${username}`);
+  }
 
   // sendMessage = (username: string, content: string) => 
   //   this.http.post<Message>(`${this.baseUrl}messages`, { recipientUsername: username, content});
+  
   async sendMessage(username: string, content: string) {
-    return this.hubConnection.invoke("SendMessageAsync", { recipientUserName: username, content })
+    return this.hubConnection.invoke("SendMessage", { recipientUsername: username, content })
             .catch(error => console.log(error));
   }
 

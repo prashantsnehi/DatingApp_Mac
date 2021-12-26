@@ -1,10 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Member } from '../_models/member';
 import { environment } from 'src/environments/environment';
-import { observable, of } from 'rxjs';
+import { of, pipe } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { PaginatedResult } from '../_models/pagination';
 import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
 import { User } from '../_models/user';
@@ -24,8 +23,8 @@ export class MembersService {
   memberCache = new Map();
   user: User;
   userParams: UserParams;
-  
-  constructor(private http: HttpClient, private accountService: AccountService) { 
+
+  constructor(private http: HttpClient, private accountService: AccountService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
       this.userParams = new UserParams(user);
@@ -47,8 +46,7 @@ export class MembersService {
     //   })
     // );
     var response = this.memberCache.get(Object.values(userParams).join('-'));
-
-    if(response) {
+    if (response) {
       return of(response);
     }
 
@@ -58,21 +56,24 @@ export class MembersService {
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    return getPaginatedResult<Member[]>(this.baseUrl + 'users', params, this.http).pipe(
-      map(response => {
+    return getPaginatedResult<Member[]>(this.baseUrl + 'users', params, this.http)
+      .pipe(map(response => {
         this.memberCache.set(Object.values(userParams).join('-'), response);
         return response;
-      })
-    );
+      }))
   }
 
   getMember(username: string) {
     // const member = this.members.find(x => x.username == username);
     // if (member !== undefined) return of(member);
     const member = [...this.memberCache.values()]
-                  .reduce((arr, elem) => arr.concat(elem.result), [])
-                  .find((member: Member) => member.username === username);
-    return this.http.get<Member>('https://localhost:5001/api/users/' + username);
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((member: Member) => member.username === username);
+
+    if(member) {
+      return of(member);
+    }
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 
   updateMember(member: Member) {
@@ -108,6 +109,6 @@ export class MembersService {
     let params = getPaginationHeaders(pageNumber, pageSize);
     params = params.append('predicate', predicate);
 
-    return getPaginatedResult<Partial<Member[]>>(`${this.baseUrl}likes`,params, this.http);
+    return getPaginatedResult<Partial<Member[]>>(`${this.baseUrl}likes`, params, this.http);
   };
 }

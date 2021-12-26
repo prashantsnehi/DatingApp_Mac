@@ -31,6 +31,7 @@ import { PhotoManagementComponent } from './admin/photo-management/photo-managem
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -100,7 +102,8 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     PhotoManagementComponent,
     ModalModule,
     RolesModalComponent,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    ConfirmDialogComponent
   ]
 })
 export class ComponentsModule { }
