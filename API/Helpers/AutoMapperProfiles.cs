@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using System.Linq;
 using System;
 using API.Entities;
@@ -26,6 +25,8 @@ namespace API.Helpers
                                opt => opt.MapFrom(src => src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url))
                     .ForMember(dest => dest.RecipientPhotoUrl,
                                opt => opt.MapFrom(src => src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url));
+
+            // CreateMap<DateTime, DateTime>().ConvertUsing(d => d.DateTime.SpecifyKind(d, DateTimeKind.Utc));
 
         }
     }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Text;
 using API.Data;
 using API.Entities;
@@ -33,11 +34,31 @@ namespace API.Extensions
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => 
-                    options.TokenValidationParameters = new TokenValidationParameters {
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters 
+                        {
                            ValidateIssuerSigningKey = true,
                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
                            ValidateAudience = false,
                            ValidateIssuer = false 
+                        };
+
+                        // for SignalR authentication
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnMessageReceived = context => 
+                            {
+                                var accessToken = context.Request.Query["access_token"];
+                                var path = context.HttpContext.Request.Path;
+
+                                if(!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                                {
+                                    context.Token = accessToken;
+                                }
+
+                                return Task.CompletedTask;
+                            }
+                        };
                     });
             services.AddAuthorization(opt => {
                 opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole(Roles.Admin.ToString()));

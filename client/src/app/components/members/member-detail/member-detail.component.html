@@ -5,6 +5,9 @@
                  alt="{{member.knownAs}}" 
                  class="card-img-top img-thumbnail">
             <div class="card-body">
+                <div class="mb-2 text-success" *ngIf="(presence.onlineUsers$ | async).includes(member.username)">
+                    <i class="fa fa-user-circle"></i> Onine Now
+                </div>
                 <div>
                     <strong>Location: </strong>
                     <p>{{member.city}}, {{member.country}}</p>
