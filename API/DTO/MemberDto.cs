@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-
+namespace API.DTO;
 public class MemberDto
 {
     public int Id { get; set; }

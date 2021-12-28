@@ -12,14 +12,12 @@ import { MessageService } from 'src/app/_services/message.service';
 export class MemberMessagesComponent implements OnInit {
   @ViewChild('messageForm') messageForm: NgForm;
   @Input() username: string;
-  @Input() messages: Message[];
   messageContent: string;
   loading = false;
 
   constructor(public messageService: MessageService) { }
 
   ngOnInit(): void {
-    // this.loadMessages();
   }
 
   sendMessage() {

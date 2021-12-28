@@ -1,27 +1,21 @@
-using System;
-using System.Threading.Tasks;
-using API.Extensions;
-using API.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Helpers
+namespace API.Helpers;
+
+public class LogUserActivity : IAsyncActionFilter
 {
-    public class LogUserActivity : IAsyncActionFilter
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            var resultContext = await next();
+        var resultContext = await next();
 
-            if(!resultContext.HttpContext.User.Identity.IsAuthenticated) return;
+        if (!resultContext.HttpContext.User.Identity.IsAuthenticated) return;
 
-            // var username = resultContext.HttpContext.User.GetUsername();
-            var userId = resultContext.HttpContext.User.GetUserId();
-            var repo = resultContext.HttpContext.RequestServices.GetService<IUnitOfWork>();
-            //var user = await repo.GetUserByUsernameAsync(username);
-            var user = await repo.UserRepository.GetUserByIdAsync(userId);
-            user.LastActive = DateTime.UtcNow;
-            await repo.Complete();
-        }
+        // var username = resultContext.HttpContext.User.GetUsername();
+        var userId = resultContext.HttpContext.User.GetUserId();
+        var repo = resultContext.HttpContext.RequestServices.GetService<IUnitOfWork>();
+        //var user = await repo.GetUserByUsernameAsync(username);
+        var user = await repo.UserRepository.GetUserByIdAsync(userId);
+        user.LastActive = DateTime.UtcNow;
+        await repo.Complete();
     }
 }

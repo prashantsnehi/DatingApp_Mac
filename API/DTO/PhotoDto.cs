@@ -1,3 +1,4 @@
+namespace API.DTO;
 public class PhotoDto
 {
     public int Id { get; set; }

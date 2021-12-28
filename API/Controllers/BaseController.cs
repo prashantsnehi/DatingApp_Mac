@@ -1,15 +1,9 @@
-using System.Net;
-using API.Helpers;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+namespace API.Controllers;
 
-namespace API.Controllers
+[ServiceFilter(typeof(LogUserActivity))]
+[ApiController]
+[Route("api/[controller]")]
+public class BaseController : ControllerBase
 {
-    [ServiceFilter(typeof(LogUserActivity))]
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BaseController : ControllerBase
-    {
-        
-    }
+
 }

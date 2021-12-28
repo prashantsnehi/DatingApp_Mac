@@ -15,7 +15,7 @@ import { AccountService } from 'src/app/_services/account.service';
 export class NavComponent implements OnInit {
   model: Login;
   currentUser$: Observable<User>;
-  userDto: any;
+  userDto: User;
   loginForm: FormGroup;
   formValidator: boolean;
   allowedRoles: string[];

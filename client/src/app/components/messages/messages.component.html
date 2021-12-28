@@ -1,4 +1,4 @@
-<div class="row mb-4">
+<div class="d-flex mb-4">
     <div class="btn-group" name="container">
         <button class="btn btn-primary" btnRadio="Unread" [(ngModel)]="container" (click)="loadMessages()">
             <i class="fa fa-envelope"></i> Unread
@@ -12,56 +12,51 @@
     </div>
 </div>
 <div class="row" *ngIf="messages?.length === 0">
-    <h3>No Messages</h3>
+    <h4>Sorry! No Messages....</h4>
 </div>
 <div class="row" *ngIf="messages?.length > 0">
-    <table class="table table-hover" style="cursor: pointer;">
-        <tr>
-            <th style="width: 20%;">From / To</th>
-            <th style="width: 40%;">Messages</th>
-            <th style="width: 20%;">Sent / Received</th>
-            <th style="width: 20%;">Action</th>
-        </tr>
-        <tr [hidden]="loading" *ngFor="let message of messages" 
-                    routerLink='{{container === "Outbox" 
+    <table class="table table-hover table-active" style="cursor: pointer;">
+        <thead>
+            <tr>
+                <th style="width: 20%;" class="text-center">From / To</th>
+                <th style="width: 50%;">Messages</th>
+                <th style="width: 20%;">Sent / Received</th>
+                <th style="width: 10%;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr [hidden]="loading" *ngFor="let message of messages" routerLink='{{container === "Outbox" 
                         ? "/members/" + message.recipientUsername 
-                        : "/members/" + message.senderUsername}}'
-                    [queryParams]="{tab: 3}">
-            <td>
-                <div *ngIf="container === 'Outbox'">
-                    <img class="img-circle rounded-circle mr-2"
-                        src="{{message.recipientPhotoUrl || './assets/user.png'}}"
-                        alt="{{messages.recipientUsername | titlecase}}">
-                    <strong>{{message.recipientUsername | titlecase}}</strong>
-                </div>
-                <div *ngIf="container !== 'Outbox'">
-                    <img class="img-circle rounded-circle mr-2" 
-                        src="{{message.senderPhotoUrl || './assets/user.png'}}"
-                        alt="{{message.senderUsername | titlecase}}">
-                    <strong>{{message.senderUsername | titlecase}}</strong>
-                </div>
-            </td>
-            <td>{{message.content}}</td>
-            <td>{{message.messageSent | timeago}}</td>
-            <td><button class="btn btn-outline-danger"
-                        (click)="$event.stopPropagation()"
+                        : "/members/" + message.senderUsername}}' [queryParams]="{tab: 3}">
+                <td class="text-center">
+                    <div *ngIf="container === 'Outbox'">
+                        <img class="img-circle rounded-circle mr-2"
+                            src="{{message.recipientPhotoUrl || './assets/user.png'}}"
+                            alt="{{messages.recipientUsername | titlecase}}">
+                        <strong>{{message.recipientUsername | titlecase}}</strong>
+                    </div>
+                    <div *ngIf="container !== 'Outbox'">
+                        <img class="img-circle rounded-circle mr-2"
+                            src="{{message.senderPhotoUrl || './assets/user.png'}}"
+                            alt="{{message.senderUsername | titlecase}}">
+                        <strong>{{message.senderUsername | titlecase}}</strong>
+                    </div>
+                </td>
+                <td>{{message.content}}</td>
+                <td>{{message.messageSent | timeago}}</td>
+                <td><button class="btn btn-danger" (click)="$event.stopPropagation()"
                         (click)="deleteMessageWithSwalConfirmation(message.id)">
                         Delete
-                </button>
-            </td>
-        </tr>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
 <div class="d-flex justify-content-center mt-3" *ngIf="pagination && !loading && messages.length > 0">
-    <pagination [boundaryLinks]="true" 
-                [totalItems]="pagination.totalItems"
-                [itemsPerPage]="pagination.itemsPerPage"
-                [(ngModel)]="pagination.currentPage"
-                (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" 
-                nextText="&rsaquo;" 
-                firstText="&laquo;" 
-                lastText="&raquo;">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
     </pagination>
 </div>

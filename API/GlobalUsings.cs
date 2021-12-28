@@ -1,0 +1,27 @@
+global using System;
+global using System.Collections.Generic;
+global using System.Threading.Tasks;
+global using System.Globalization;
+global using API.DTO;
+global using API.Entities;
+global using API.Helpers;
+global using System.Linq;
+global using System.Security.Cryptography;
+global using API.Data;
+global using Microsoft.AspNetCore.Mvc;
+global using System.Text;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Http;
+global using API.Interfaces;
+global using AutoMapper;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.DependencyInjection;
+
+global using API.Extensions;
+global using API.SignalR;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.OpenApi.Models;
+global using API.Middleware;

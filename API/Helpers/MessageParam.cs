@@ -1,8 +1,7 @@
-namespace API.Helpers
+namespace API.Helpers;
+
+public class MessageParam : PaginationParams
 {
-    public class MessageParam : PaginationParams
-    {
-        public string Username { get; set; }
-        public string Container { get; set; } = "Unread";
-    }
+    public string Username { get; set; }
+    public string Container { get; set; } = "Unread";
 }
