@@ -47,6 +47,7 @@ app.MapHub<MessageHub>("hubs/message");
 app.MapFallbackToController("Index", "Fallback");
 
 // startup tasks
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 
