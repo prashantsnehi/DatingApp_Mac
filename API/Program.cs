@@ -38,9 +38,13 @@ app.UseCors(options => options.AllowAnyHeader()
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();  // Settings for publishing angular 
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
+app.MapFallbackToController("Index", "Fallback");
 
 // startup tasks
 using var scope = app.Services.CreateScope();

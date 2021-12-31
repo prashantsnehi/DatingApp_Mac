@@ -9,11 +9,11 @@ using API.SignalR;
 
 namespace API
 {
-    public class Startup
+    public class StartupOrg
     {
         private readonly IConfiguration _config;
 
-        public Startup(IConfiguration config)
+        public StartupOrg(IConfiguration config)
         {
             _config = config;
         }
@@ -60,6 +60,8 @@ namespace API
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
 
             app.UseEndpoints(endpoints =>
             {
